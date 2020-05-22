@@ -36,6 +36,7 @@ pipeline{
             stage('MetriCheck'){
                 agent any
                 steps{
+		git 'https://github.com/devops-trainer/DevOpsClassCodes.git'
                     sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
                 }
                 post{
@@ -47,6 +48,7 @@ pipeline{
             stage('Package'){
                 agent any
                 steps{
+		git 'https://github.com/devops-trainer/DevOpsClassCodes.git'
                     sh 'mvn package'
                 }
             }
