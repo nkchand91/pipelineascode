@@ -51,6 +51,12 @@ pipeline{
 		git 'https://github.com/devops-trainer/DevOpsClassCodes.git'
                     sh 'mvn package'
                 }
+	     stage('Deploy'){
+                agent any
+                steps{
+		git 'https://github.com/nkchand91/docker.git'
+                    sh 'mvn deploy'
+                }
             }
             
         }
