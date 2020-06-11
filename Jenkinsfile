@@ -46,15 +46,15 @@ pipeline{
                 }
             }
             stage('Package'){
-                agent any
+                agent {label 'linux_slave' }
                 steps{
 		git 'https://github.com/devops-trainer/DevOpsClassCodes.git'
                     sh 'mvn package'
                 }
 		    
             }
-            stage('Deploy'){
-              agent any
+            stage('Deploy'){ 
+		    agent {label 'linux_slave' }
               steps{
               sh "rm -rf *"
               sh "ls -l"
