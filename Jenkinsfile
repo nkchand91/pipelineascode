@@ -53,13 +53,23 @@ pipeline{
                 }
 		    
             }
-          stage('Deploy'){
-                agent any
-                steps{
-		git 'https://github.com/nkchand91/docker.git'
-                    sh 'mvn deploy'
-                }  
-             }
+            stage('Deploy'){
+              agent any
+              steps{
+              sh "rm -rf *"
+              sh "ls -l"
+              sh "cp /var/lib/jenkins/workspace/package/target/addressbook.war ."
+	      git 'https://github.com/nkchand91/docker.git'			
+              sh "docker build -t myimages:$BUILD_NUMBER ."
+              //cant give a fix tag coz every time new image will created, we will use Env_var
+               sh "docker images"
+               sh "docker run -itd -P myimages:$BUILD_NUMBER"
+               //we are not giving any container name as we are depoying new image.
+               sh "docker ps"
+               //to show that container is running.
+  
+                }
+            }
     
     }
 }
